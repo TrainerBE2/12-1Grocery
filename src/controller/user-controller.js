@@ -41,6 +41,7 @@ const register = async (req, res, next) => {
                 name: userRegister.name,
                 password: password,
                 no_telp: userRegister.no_telp,
+                role: 'User',
                 image: 'default.jpg',
                 expireTime: new Date(Date.now() + (60000 * 60))
             },
@@ -49,6 +50,7 @@ const register = async (req, res, next) => {
                 email: true,
                 name: true,
                 no_telp: true,
+                role: true,
                 image: true,
                 isActive: true,
                 expireTime: true
@@ -149,11 +151,6 @@ const login = async (req, res, next) => {
                 token: token
             },
             select: {
-                id: true,
-                email: true,
-                name: true,
-                no_telp: true,
-                image: true,
                 token: true
             }
         })

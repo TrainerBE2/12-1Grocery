@@ -12,6 +12,7 @@ async function main() {
             password: await encript("12345"),
             name: "Abdul Talif Parinduri",
             no_telp: "089512345678",
+            role: "Admin",
             image: "default.png",
 
         }
