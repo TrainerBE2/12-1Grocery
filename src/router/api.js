@@ -2,6 +2,8 @@ import express from 'express';
 import userController from '../controller/user-controller.js';
 import { authentication } from '../middleware/auth-middleware.js';
 import cartController from '../controller/cart-controller.js';
+import { uploadProduct } from '../middleware/upload-middleware.js';
+import productsController from '../controller/products-controller.js';
 
 const router = express.Router();
 
@@ -15,10 +17,16 @@ router.get('/api-public/valid-token/:token', userController.validToken);
 router.post('/api/logout', authentication, userController.logout);
 router.patch('/api-public/reset-password/:token', userController.resetPassword);
 
+// Cart
 router.get('/api/carts', authentication, cartController.getCarts);
 router.post('/api/carts', authentication, cartController.createCart);
 router.put('/api/carts/:cartId', authentication, cartController.updateCart);
 router.delete('/api/carts/:cartId', authentication, cartController.deleteCart);
+
+// Products
+router.post('/api/products', authentication, uploadProduct.single('image'), productsController.createProduct);
+router.put('/api/products/:productId', authentication, uploadProduct.single('image'), productsController.updateProduct);
+router.delete('/api/products/:productId', authentication, productsController.deleteProduct);
 
 
 router.use((req, res, next) => {
