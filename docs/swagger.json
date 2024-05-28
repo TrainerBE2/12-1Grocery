@@ -11,6 +11,10 @@
             "description": "API ini untuk mengelola auth resources"
         },
         {
+            "name": "Products",
+            "description": "API ini untuk mengelola data product resources"
+        },
+        {
             "name": "Carts",
             "description": "API ini untuk mengelola data cart resources"
         }
@@ -43,7 +47,7 @@
                                     "password": {
                                         "type": "string",
                                         "description": "Password user",
-                                        "example": "12345"
+                                        "example": "12345678"
                                     }
                                 }
                             }
@@ -65,6 +69,26 @@
                                         "data": {
                                             "type": "object",
                                             "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "eae3f351-8802-4fd3-8014-600f2113d512"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "abdultalif85@gmail.com"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Abdul Talif Parinduri"
+                                                },
+                                                "no_telp": {
+                                                    "type": "string",
+                                                    "example": "081234567890"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "default.png"
+                                                },
                                                 "token": {
                                                     "type": "string",
                                                     "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZjM2E2MjMyLTI5M2EtNDhiZS1hYWQ2LTBjMTBjNTQ5NzJiZCIsImVtYWlsIjoiYWJkdWx0YWxpZjg1QGdtYWlsLmNvbSIsImlhdCI6MTcxNTc4MzI0MywiZXhwIjoxNzE1Nzg1MDQzfQ.wRJ2rbyXxULSwgsHdALNROsbGAqEj2CSfWF66K950CQ"
@@ -185,7 +209,7 @@
                                             "properties": {
                                                 "id": {
                                                     "type": "string",
-                                                    "example": "fc3a6232-293a-48be-aad6-0c10c54972bd"
+                                                    "example": "eae3f351-8802-4fd3-8014-600f2113d512"
                                                 },
                                                 "email": {
                                                     "type": "string",
@@ -198,10 +222,6 @@
                                                 "no_telp": {
                                                     "type": "string",
                                                     "example": "081234567890"
-                                                },
-                                                "role": {
-                                                    "type": "string",
-                                                    "example": "User"
                                                 },
                                                 "image": {
                                                     "type": "string",
@@ -319,24 +339,24 @@
                 "description": "API ini digunakan ketika user ingin meng-aktifkan akun",
                 "parameters": [
                     {
-                        "name": "Id User",
+                        "name": "userId",
                         "in": "path",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "description": "Id User",
-                            "example": "868223d1-03f2-40d1-ba7d-0bb02223bbb9"
+                            "example": "eae3f351-8802-4fd3-8014-600f2113d512"
                         },
                         "description": "Id User"
                     },
                     {
-                        "name": "Email",
+                        "name": "email",
                         "in": "path",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "description": "Email",
-                            "example": "abdultalif75@gmail.com"
+                            "example": "abdultalif85@gmail.com"
                         },
                         "description": "Email"
                     }
@@ -646,6 +666,763 @@
                                         "errors": {
                                             "type": "object",
                                             "example": "Token invalid or token expired"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/category/{category}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "API untuk menampilkan data product berdasarkan category product",
+                "description": "API untuk menampilkan data product berdasarkan category product",
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "category",
+                            "example": "New Menu"
+                        },
+                        "description": "category"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Get products by category successfully"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Kopi Liong Bulan"
+                                                },
+                                                "stok": {
+                                                    "type": "number",
+                                                    "example": 2
+                                                },
+                                                "price": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus."
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "New Menu"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "1716821811433.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Product Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "API untuk menambahkan data product",
+                "description": "API ini digunakan untuk menambahkan data product",
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Kopi Liong Bulan",
+                                        "description": "Nama Produk yang ingin dijual"
+                                    },
+                                    "stok": {
+                                        "type": "integer",
+                                        "example": 2,
+                                        "description": "Stok produk yang ingin dijual"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 20000,
+                                        "description": "Harga produk yang ingin dijual"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus.",
+                                        "description": "Deskripsi produk yang ingin dijual"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Minuman",
+                                        "description": "Kategori produk yang ingin dijual"
+                                    },
+                                    "image": {
+                                        "type": "file",
+                                        "example": "kopi.jpg",
+                                        "description": "Gambar produk yang ingin dijual"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Create product Kopi Liong Bulan successfuly"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Kopi Liong Bulan"
+                                                },
+                                                "stok": {
+                                                    "type": "number",
+                                                    "example": 2
+                                                },
+                                                "price": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus."
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Minuman"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "1716821811433.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "name is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "stok": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "stok is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "price": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "price is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "image is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "category is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "description is not allowed to be empty"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "API untuk menampilkan data product",
+                "description": "API ini digunakan untuk menampilkan data product",
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Get products successfully"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Kopi Liong Bulan"
+                                                },
+                                                "stok": {
+                                                    "type": "number",
+                                                    "example": 2
+                                                },
+                                                "price": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus."
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Minuman"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "1716821811433.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{productId}": {
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "API untuk mengubah data product",
+                "description": "API ini digunakan untuk mengubah data product",
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "productId",
+                            "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                        },
+                        "description": "Id Product"
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Kopi Liong Bulan",
+                                        "description": "Nama Produk yang ingin dijual"
+                                    },
+                                    "stok": {
+                                        "type": "integer",
+                                        "example": 2,
+                                        "description": "Stok produk yang ingin dijual"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 20000,
+                                        "description": "Harga produk yang ingin dijual"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus.",
+                                        "description": "Deskripsi produk yang ingin dijual"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Minuman",
+                                        "description": "Kategori produk yang ingin dijual"
+                                    },
+                                    "image": {
+                                        "type": "file",
+                                        "example": "kopi.jpg",
+                                        "description": "Gambar produk yang ingin dijual"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Update product Kopi Liong Bulan successfuly"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Kopi Liong Bulan"
+                                                },
+                                                "stok": {
+                                                    "type": "number",
+                                                    "example": 2
+                                                },
+                                                "price": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus."
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Minuman"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "1716821811433.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "name is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "stok": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "stok is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "price": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "price is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "image is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "category is not allowed to be empty"
+                                                    ]
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "description is not allowed to be empty"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Product Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "API untuk menampilkan data product berdasarkan id product",
+                "description": "API untuk menampilkan data product berdasarkan id product",
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "productId",
+                            "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                        },
+                        "description": "Id Product"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Get product successfully"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Kopi Liong Bulan"
+                                                },
+                                                "stok": {
+                                                    "type": "number",
+                                                    "example": 2
+                                                },
+                                                "price": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum et sequi iste itaque voluptatum voluptatibus accusamus."
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Minuman"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "1716821811433.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Product Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "API untuk menghapus data product",
+                "description": "API ini digunakan untuk menghapus data product",
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "productId",
+                            "example": "e891442c-0353-4d39-bb6c-246d81091365"
+                        },
+                        "description": "Id Product"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Delete product successfuly"
+                                        },
+                                        "data": {
+                                            "type": null,
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Product Not Found"
                                         }
                                     }
                                 }
@@ -991,7 +1768,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "Id Cart",
+                        "name": "cartId",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1009,11 +1786,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "productId": {
-                                        "type": "string",
-                                        "description": "productId",
-                                        "example": "3695bb82-607e-4492-8b1c-49d5f472b3ab"
-                                    },
                                     "quantity": {
                                         "type": "number",
                                         "description": "quantity Product",
@@ -1179,6 +1951,22 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Cart not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -1195,7 +1983,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "Id Cart",
+                        "name": "cartId",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1242,16 +2030,32 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": "Cart not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-        },
-        "components": {
-            "securitySchemes": {
-                "bearerToken": {
-                    "type": "http",
-                    "scheme": "bearer"
-                }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerToken": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     }

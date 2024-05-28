@@ -25,6 +25,9 @@ router.delete('/api/carts/:cartId', authentication, cartController.deleteCart);
 
 // Products
 router.post('/api/products', authentication, uploadProduct.single('image'), productsController.createProduct);
+router.get('/api/products', authentication, productsController.getProducts);
+router.get('/api/products/category/:category', authentication, productsController.getProductByCategory);
+router.get('/api/products/:productId', authentication, productsController.getProduct);
 router.put('/api/products/:productId', authentication, uploadProduct.single('image'), productsController.updateProduct);
 router.delete('/api/products/:productId', authentication, productsController.deleteProduct);
 

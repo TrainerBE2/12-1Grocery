@@ -35,6 +35,50 @@ const createProduct = async (req, res, next) => {
     }
 }
 
+const getProducts = async (req, res, next) => {
+    try {
+
+        const result = await prisma.product.findMany();
+
+        if (result.length === 0) throw new ResponseError(404, "Product not found");
+
+        res.status(200).json({
+            message: "Get products successfully",
+            data: result
+        });
+        logger.info("Get products successfully");
+
+    } catch (error) {
+        logger.error(`Error in get products function: ${error.message}`)
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
+const getProduct = async (req, res, next) => {
+    try {
+
+        const productExist = await prisma.product.findUnique({ where: { id: req.params.productId } });
+        if (!productExist) throw new ResponseError(404, "Product not found");
+
+        const result = await prisma.product.findMany({
+            where: { id: req.params.productId }
+        });
+
+
+        res.status(200).json({
+            message: "Get product successfully",
+            data: result
+        });
+        logger.info("Get product successfully");
+
+    } catch (error) {
+        logger.error(`Error in get product function: ${error.message}`)
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
 const updateProduct = async (req, res, next) => {
     try {
         const product = req.body;
@@ -98,8 +142,35 @@ const deleteProduct = async (req, res, next) => {
         next(error);
     }
 }
+
+
+const getProductByCategory = async (req, res, next) => {
+    try {
+
+        const result = await prisma.product.findMany({
+            where: { category: req.params.category }
+        });
+
+        if (result.length === 0) throw new ResponseError(404, "Product not found");
+
+
+        res.status(200).json({
+            message: `Get products by category successfully`,
+            data: result
+        });
+        logger.info(`Get products by category successfully`);
+
+    } catch (error) {
+        logger.error(`Error in get product by category function: ${error.message}`)
+        logger.error(error.stack);
+        next(error)
+    }
+}
 export default {
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProducts,
+    getProduct,
+    getProductByCategory
 }
