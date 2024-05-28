@@ -223,6 +223,10 @@
                                                     "type": "string",
                                                     "example": "081234567890"
                                                 },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
                                                 "image": {
                                                     "type": "string",
                                                     "example": "default.png"
