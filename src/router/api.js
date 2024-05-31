@@ -32,6 +32,14 @@ router.put('/api/products/:productId', authentication, uploadProduct.single('ima
 router.delete('/api/products/:productId', authentication, productsController.deleteProduct);
 
 
+// user
+router.post('/api/users', authentication, userController.createUser);
+router.put('/api/users/:userId', authentication, userController.updateUser);
+router.delete('/api/users/:userId', authentication, userController.deleteUser);
+router.get('/api/users/:userId', authentication, userController.getUser);
+router.get('/api/users', authentication, userController.getUsers);
+
+
 router.use((req, res, next) => {
     res.status(404).json({ errors: "Periksa lagi Endpoint nya mang salahan kayanya" })
 })
