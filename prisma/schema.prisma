@@ -29,6 +29,7 @@ model User {
   updatedAt  DateTime  @updatedAt
 
   carts Cart[]
+  Order Order[]
 
   @@map("users")
 }
@@ -44,7 +45,8 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  carts Cart[]
+  carts     Cart[]
+  OrderItem OrderItem[]
 
   @@map("products")
 }
@@ -61,4 +63,48 @@ model Cart {
   updatedAt DateTime @updatedAt
 
   @@map("carts")
+}
+
+enum statusOrder {
+  SUCCESS
+  PENDING
+  CANCELLED
+}
+
+enum statusShipping {
+  PROCESSING
+  SHIPPING
+  DELIVERED
+}
+
+model Order {
+  id               String         @id @default(uuid())
+  userId           String
+  user             User           @relation(fields: [userId], references: [id])
+  totalPrice       Int
+  shippingPrice    Int
+  statusOrder      statusOrder
+  statusShipping   statusShipping
+  address          String
+  tokenMidtrans    String
+  responseMidtrans String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  OrderItem        OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  subtotal  Int
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("order_items")
 }

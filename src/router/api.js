@@ -4,6 +4,7 @@ import { authentication } from '../middleware/auth-middleware.js';
 import cartController from '../controller/cart-controller.js';
 import { uploadProduct } from '../middleware/upload-middleware.js';
 import productsController from '../controller/products-controller.js';
+// import orderController from '../controller/order-controller.js';
 
 const router = express.Router();
 
@@ -30,6 +31,10 @@ router.get('/api/products/category/:category', authentication, productsControlle
 router.get('/api/products/:productId', authentication, productsController.getProduct);
 router.put('/api/products/:productId', authentication, uploadProduct.single('image'), productsController.updateProduct);
 router.delete('/api/products/:productId', authentication, productsController.deleteProduct);
+
+// Order
+// router.post('/api/orders', authentication, orderController.createOrder);
+// router.post('/api/orders/midtrans-web-hook', orderController.midtransWebhook);
 
 
 // user

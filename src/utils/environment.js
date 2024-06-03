@@ -11,6 +11,10 @@ const mailPassword = process.env.MAIL_PASSWORD;
 const mailFrom = process.env.MAIL_FROM;
 
 
+const serverKeyMidtrans = process.env.SERVER_KEY_MIDTRANS;
+const rajaOngkirKey = process.env.RAJA_ONGKIR_KEY;
+
+
 export {
     port,
     JWTSecret,
@@ -18,6 +22,7 @@ export {
     mailService,
     mailUser,
     mailPassword,
-    mailFrom
-
+    mailFrom,
+    serverKeyMidtrans,
+    rajaOngkirKey
 }

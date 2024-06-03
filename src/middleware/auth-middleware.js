@@ -16,4 +16,18 @@ const authentication = (req, res, next) => {
 
 }
 
-export { authentication }
+const admin = (req, res, next) => {
+    if (!req.user.role === "Admin") {
+        throw new ResponseError(403, false, "Forbidden.. Kamu bukan Admin", null);
+    }
+    next();
+}
+
+const superAdmin = (req, res, next) => {
+    if (!req.user.role === "Super Admin") {
+        throw new ResponseError(403, false, "Forbidden.. Kamu bukan Super Admin", null);
+    }
+    next();
+}
+
+export { authentication, admin, superAdmin }

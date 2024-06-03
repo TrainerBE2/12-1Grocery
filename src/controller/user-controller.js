@@ -125,7 +125,8 @@ const login = async (req, res, next) => {
                 name: true,
                 no_telp: true,
                 image: true,
-                isActive: true
+                isActive: true,
+                role: true
             }
         });
 
@@ -140,6 +141,7 @@ const login = async (req, res, next) => {
             name: userExists.name,
             no_telp: userExists.no_telp,
             image: userExists.image,
+            role: userExists.role
         }
 
         const token = generateAccessToken(user);

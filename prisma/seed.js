@@ -9,10 +9,11 @@ async function main() {
         data: {
             id: user_id(),
             email: "abdultalif85@gmail.com",
-            password: await encript("12345"),
+            password: await encript("12345678"),
             name: "Abdul Talif Parinduri",
             no_telp: "089512345678",
             role: "Admin",
+            isActive: true,
             image: "default.png",
 
         }
