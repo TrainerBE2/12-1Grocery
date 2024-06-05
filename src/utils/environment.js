@@ -2,7 +2,7 @@ import dotenv from 'dotenv/config';
 
 const port = process.env.PORT;
 
-const JWTSecret = process.env.JWT_SECERET;
+const JWTSecret = process.env.JWT_SECRET;
 const JWTEpiresIn = process.env.JWT_EXPIRES_IN;
 
 const mailService = process.env.MAIL_SERVICE;

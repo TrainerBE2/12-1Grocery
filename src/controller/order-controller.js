@@ -4,6 +4,8 @@ import crypto from "crypto";
 import logger from '../utils/logging.js';
 import { prisma } from '../utils/database.js';
 import { serverKeyMidtrans } from '../utils/environment.js';
+import axios from 'axios';
+import { ResponseError } from '../error/response-error.js';
 
 const snap = new midtransClient.Snap({
     isProduction: false,
@@ -55,10 +57,21 @@ const createOrder = async (req, res, next) => {
                 totalPrice: req.body.total,
                 shippingPrice: req.body.ongkir,
                 statusOrder: 'PENDING',
-                statusShipping: 'PROCESSING',
                 address: req.body.address,
                 tokenMidtrans: transactionToken,
                 responseMidtrans: JSON.stringify(transaction)
+            }
+        });
+
+        await prisma.tracking.create({
+            data: {
+                status: "PROCESSING",
+                city: req.body.city,
+                userId: req.user.id,
+                orderId: parameter.transaction_details.order_id,
+                note: req.body.note,
+                courier: req.body.courier,
+                estimatedDelivery: req.body.estimated
             }
         });
 
@@ -158,7 +171,153 @@ const midtransWebhook = async (req, res, next) => {
     }
 }
 
+
+const cancelTransaction = async (req, res, next) => {
+    try {
+        const url = `https://api.sandbox.midtrans.com/v2/${req.body.transaction_id}/cancel`;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + Buffer.from(serverKeyMidtrans + ':').toString('base64')
+        }
+        const data = {
+            transaction_id: req.body.transaction_id
+        };
+
+        const response = await axios.post(url, data, { headers });
+
+        if (response.data.transaction_status == 'cancel') {
+            await prisma.order.update({
+                data: {
+                    statusOrder: 'CANCELLED'
+                },
+                where: {
+                    id: req.body.transaction_id
+                }
+            });
+        }
+
+        res.status(200).json({
+            message: response.data.status_message,
+            data: response.data,
+        });
+
+        logger.info('Cancel order Successfully');
+    } catch (error) {
+        logger.error(`Error in processing Cancel Transaction : ${error.message}`);
+        logger.error(error.stack);
+        next(error);
+    }
+}
+
+
+const getOrders = async (req, res, next) => {
+    try {
+        const order = await prisma.order.findMany({
+            include: {
+                user: true,
+                OrderItem: {
+                    include: {
+                        product: true,
+                    },
+                },
+                Tracking: true,
+            },
+        });
+
+        if (order.length === 0) throw new ResponseError(404, 'Orders not found');
+
+        res.status(200).json({
+            message: "Get orders successfully",
+            data: order
+        })
+
+    } catch (error) {
+        logger.error(`Error in get orders function : ${error.message}`);
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
+
+const getOrder = async (req, res, next) => {
+    try {
+        const order = await prisma.order.findUnique({
+            where: { id: req.params.orderId },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        name: true,
+                    },
+                },
+                OrderItem: {
+                    include: {
+                        product: true,
+                    },
+                },
+                Tracking: true,
+            },
+        });
+
+        if (!order) throw new ResponseError(404, 'Order not found');
+
+        res.status(200).json({
+            message: "Get order successfully",
+            data: order
+        })
+
+    } catch (error) {
+        logger.error(`Error in get order function : ${error.message}`);
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
+const filterOrdersByStatus = async (req, res, next) => {
+    try {
+        console.log(req.query.status);
+        const result = await prisma.order.findMany({
+            where: {
+                statusOrder: {
+                    equals: req.query.status
+                }
+            },
+
+            orderBy: {
+                updatedAt: 'desc'
+            },
+            include: {
+                user: true,
+                OrderItem: {
+                    include: {
+                        product: true,
+                    },
+                },
+                Tracking: true,
+            },
+        })
+
+
+        if (result.length === 0) throw new ResponseError(404, 'Order not found')
+
+        res.status(200).json({
+            message: "filter order by status successfully",
+            data: result
+        })
+    } catch (error) {
+        logger.error(`Error in filter order by status  function : ${error.message}`);
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
+
 export default {
     createOrder,
-    midtransWebhook
+    midtransWebhook,
+    cancelTransaction,
+    getOrders,
+    getOrder,
+    filterOrdersByStatus
 }

@@ -5,6 +5,7 @@ import cartController from '../controller/cart-controller.js';
 import { uploadProduct } from '../middleware/upload-middleware.js';
 import productsController from '../controller/products-controller.js';
 import orderController from '../controller/order-controller.js';
+import ongkirController from '../controller/ongkir-controller.js';
 
 const router = express.Router();
 
@@ -32,9 +33,14 @@ router.get('/api/products/:productId', authentication, productsController.getPro
 router.put('/api/products/:productId', authentication, uploadProduct.single('image'), productsController.updateProduct);
 router.delete('/api/products/:productId', authentication, productsController.deleteProduct);
 
+
 // Order
+router.get('/api/orders/filter-status', authentication, orderController.filterOrdersByStatus);
 router.post('/api/orders', authentication, orderController.createOrder);
+router.get('/api/orders', authentication, orderController.getOrders);
+router.get('/api/orders/:orderId', authentication, orderController.getOrder);
 router.post('/api/orders/midtrans-web-hook', orderController.midtransWebhook);
+router.post('/api/orders/cancel-transaction', authentication, orderController.cancelTransaction);
 
 
 // user
@@ -44,6 +50,11 @@ router.delete('/api/users/:userId', authentication, userController.deleteUser);
 router.get('/api/users/:userId', authentication, userController.getUser);
 router.get('/api/users', authentication, userController.getUsers);
 
+
+// Raja Ongkir
+router.get('/api/province', ongkirController.province);
+router.get('/api/city/:provinceId', ongkirController.city);
+router.post('/api/cost', authentication, ongkirController.cost);
 
 router.use((req, res, next) => {
     res.status(404).json({ errors: "Periksa lagi Endpoint nya mang salahan kayanya" })

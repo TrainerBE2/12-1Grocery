@@ -28,8 +28,9 @@ model User {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
-  carts Cart[]
-  Order Order[]
+  carts    Cart[]
+  Order    Order[]
+  Tracking Tracking[]
 
   @@map("users")
 }
@@ -71,28 +72,45 @@ enum statusOrder {
   CANCELLED
 }
 
-enum statusShipping {
+enum statusTrackring {
   PROCESSING
   SHIPPING
   DELIVERED
 }
 
 model Order {
-  id               String         @id @default(uuid())
+  id               String      @id @default(uuid())
   userId           String
-  user             User           @relation(fields: [userId], references: [id])
+  user             User        @relation(fields: [userId], references: [id])
   totalPrice       Int
   shippingPrice    Int
   statusOrder      statusOrder
-  statusShipping   statusShipping
   address          String
   tokenMidtrans    String
-  responseMidtrans String
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  responseMidtrans String      @db.Text()
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
   OrderItem        OrderItem[]
+  Tracking         Tracking[]
 
   @@map("orders")
+}
+
+model Tracking {
+  id                String          @id @default(uuid())
+  status            statusTrackring
+  city              String
+  userId            String
+  user              User            @relation(fields: [userId], references: [id])
+  orderId           String
+  order             Order           @relation(fields: [orderId], references: [id])
+  note              String?         @db.Text()
+  courier           String
+  estimatedDelivery String
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@map("trackings")
 }
 
 model OrderItem {
