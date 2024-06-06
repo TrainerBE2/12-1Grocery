@@ -1,5 +1,5 @@
 import express from 'express';
-import router from '../router/api.js';
+import router from '../router/index.js';
 import cors from 'cors';
 import { errorMiddleware } from '../middleware/error-middleware.js';
 import { readFileSync } from 'fs';
