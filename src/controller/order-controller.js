@@ -50,48 +50,138 @@ const createOrder = async (req, res, next) => {
         const transaction = await snap.createTransaction(parameter);
         const transactionToken = transaction.token;
 
-        await prisma.order.create({
-            data: {
-                id: parameter.transaction_details.order_id,
-                userId: req.user.id,
-                totalPrice: req.body.total,
-                shippingPrice: req.body.ongkir,
-                statusOrder: 'PENDING',
-                address: req.body.address,
-                tokenMidtrans: transactionToken,
-                responseMidtrans: JSON.stringify(transaction)
+        await prisma.$transaction(async (prisma) => {
+            // Cek stok untuk setiap item sebelum membuat pesanan
+            for (const item of items) {
+                const product = await prisma.product.findUnique({
+                    where: { id: item.productId }
+                });
+
+                if (product.stok < item.quantity) {
+                    throw new ResponseError(400, `Insufficient stock for product ${product.name}. Available stock: ${product.stok}, requested: ${item.quantity}`);
+                }
             }
+
+
+
+            // Buat pesanan setelah stok valid
+            await prisma.order.create({
+                data: {
+                    id: parameter.transaction_details.order_id,
+                    userId: req.user.id,
+                    totalPrice: req.body.total,
+                    shippingPrice: req.body.ongkir,
+                    statusOrder: 'PENDING',
+                    address: req.body.address,
+                    tokenMidtrans: transactionToken,
+                    responseMidtrans: JSON.stringify(transaction)
+                }
+            });
+
+            await prisma.tracking.create({
+                data: {
+                    status: "PROCESSING",
+                    city: req.body.city,
+                    userId: req.user.id,
+                    orderId: parameter.transaction_details.order_id,
+                    note: req.body.note,
+                    courier: req.body.courier,
+                    estimatedDelivery: req.body.estimated
+                }
+            });
+
+            const orderItems = items.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity,
+                subtotal: item.price * item.quantity,
+                orderId: parameter.transaction_details.order_id
+            }));
+
+            await prisma.orderItem.createMany({
+                data: orderItems
+            });
+
+            // Kurangi stok produk setelah membuat order item
+            for (const item of items) {
+                await prisma.product.update({
+                    where: { id: item.productId },
+                    data: { stok: { decrement: item.quantity } }
+                });
+            }
+
+            await prisma.cart.deleteMany({
+                where: {
+                    userId: req.user.id
+                }
+            });
         });
 
-        await prisma.tracking.create({
-            data: {
-                status: "PROCESSING",
-                city: req.body.city,
-                userId: req.user.id,
-                orderId: parameter.transaction_details.order_id,
-                note: req.body.note,
-                courier: req.body.courier,
-                estimatedDelivery: req.body.estimated
-            }
-        });
 
-        const orderItems = items.map(item => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            subtotal: item.price * item.quantity,
-            orderId: parameter.transaction_details.order_id
-        }));
+        // await prisma.$transaction(async (prisma) => {
+        //     // Cek stok untuk setiap item sebelum membuat pesanan
+        //     for (const item of items) {
+        //         const product = await prisma.product.findUnique({
+        //             where: { id: item.productId }
+        //         });
+
+        //         if (product.stok < item.quantity) {
+        //             throw new Error(`Insufficient stock for product ${product.name}. Available stock: ${product.stok}, requested: ${item.quantity}`);
+        //         }
+        //     }
+        // })
 
 
-        await prisma.orderItem.createMany({
-            data: orderItems
-        })
 
-        await prisma.cart.deleteMany({
-            where: {
-                userId: req.user.id
-            }
-        })
+
+        // await prisma.order.create({
+        //     data: {
+        //         id: parameter.transaction_details.order_id,
+        //         userId: req.user.id,
+        //         totalPrice: req.body.total,
+        //         shippingPrice: req.body.ongkir,
+        //         statusOrder: 'PENDING',
+        //         address: req.body.address,
+        //         tokenMidtrans: transactionToken,
+        //         responseMidtrans: JSON.stringify(transaction)
+        //     }
+        // });
+
+        // await prisma.tracking.create({
+        //     data: {
+        //         status: "PROCESSING",
+        //         city: req.body.city,
+        //         userId: req.user.id,
+        //         orderId: parameter.transaction_details.order_id,
+        //         note: req.body.note,
+        //         courier: req.body.courier,
+        //         estimatedDelivery: req.body.estimated
+        //     }
+        // });
+
+        // const orderItems = items.map(item => ({
+        //     productId: item.productId,
+        //     quantity: item.quantity,
+        //     subtotal: item.price * item.quantity,
+        //     orderId: parameter.transaction_details.order_id
+        // }));
+
+
+        // await prisma.orderItem.createMany({
+        //     data: orderItems
+        // })
+
+        // for (const item of items) {
+        //     await prisma.product.update({
+        //         where: { id: item.productId },
+        //         data: { stok: { decrement: item.quantity } }
+        //     });
+        // }
+
+        // await prisma.cart.deleteMany({
+        //     where: {
+        //         userId: req.user.id
+        //     }
+        // })
 
         console.log(transactionToken);
         res.status(201).json({

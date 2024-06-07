@@ -55,3 +55,31 @@ Error: Route.get() requires a callback function but got a [object Undefined]
  [LOGGER] 2024-06-07 03:17:21.347 PM ERROR : Error in login function: User not active
  [LOGGER] 2024-06-07 03:17:21.349 PM ERROR : Error: User not active
     at login (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/auth-controller.js:136:41)
+ [LOGGER] 2024-06-07 04:41:41.602 PM ERROR : Error create order function in: Insufficient stock for product Test again popop. Available stock: 2, requested: 5
+ [LOGGER] 2024-06-07 04:41:41.605 PM ERROR : Error: Insufficient stock for product Test again popop. Available stock: 2, requested: 5
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:58:27
+    at async Proxy._transactionWithCallback (D:\belajar\gamelab\Grocery Delivery APP\node_modules\@prisma\client\runtime\library.js:127:9534)
+    at async createOrder (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:50:9)
+ [LOGGER] 2024-06-07 04:41:56.951 PM ERROR : Error create order function in: Insufficient stock for product Test again popop. Available stock: 2, requested: 3
+ [LOGGER] 2024-06-07 04:41:56.952 PM ERROR : Error: Insufficient stock for product Test again popop. Available stock: 2, requested: 3
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:58:27
+    at async Proxy._transactionWithCallback (D:\belajar\gamelab\Grocery Delivery APP\node_modules\@prisma\client\runtime\library.js:127:9534)
+    at async createOrder (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:50:9)
+ [LOGGER] 2024-06-07 04:42:04.250 PM ERROR : Error create order function in: transactionToken is not defined
+ [LOGGER] 2024-06-07 04:42:04.250 PM ERROR : ReferenceError: transactionToken is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:71:36
+    at async Proxy._transactionWithCallback (D:\belajar\gamelab\Grocery Delivery APP\node_modules\@prisma\client\runtime\library.js:127:9534)
+    at async createOrder (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:50:9)
+ [LOGGER] 2024-06-07 04:54:27.263 PM ERROR : Error create order function in: Insufficient stock for product popo. Available stock: 5, requested: 7
+ [LOGGER] 2024-06-07 04:54:27.266 PM ERROR : Error: Insufficient stock for product popo. Available stock: 5, requested: 7
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:60:27
+    at async Proxy._transactionWithCallback (D:\belajar\gamelab\Grocery Delivery APP\node_modules\@prisma\client\runtime\library.js:127:9534)
+    at async createOrder (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:52:9)
+ [LOGGER] 2024-06-07 04:54:58.249 PM ERROR : Error create order function in: transactionToken is not defined
+ [LOGGER] 2024-06-07 04:54:58.249 PM ERROR : ReferenceError: transactionToken is not defined
+    at createOrder (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:186:21)
+ [LOGGER] 2024-06-07 04:57:19.988 PM ERROR : Error create order function in: Insufficient stock for product Test again popop. Available stock: 1, requested: 2
+ [LOGGER] 2024-06-07 04:57:19.992 PM ERROR : Error: Insufficient stock for product Test again popop. Available stock: 1, requested: 2
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:61:27
+    at async Proxy._transactionWithCallback (D:\belajar\gamelab\Grocery Delivery APP\node_modules\@prisma\client\runtime\library.js:127:9534)
+    at async createOrder (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/order-controller.js:53:9)
