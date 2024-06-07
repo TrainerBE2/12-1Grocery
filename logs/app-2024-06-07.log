@@ -46,3 +46,12 @@ Error: listen EADDRINUSE: address already in use :::3000
     at Route.dispatch (D:\belajar\gamelab\Grocery Delivery APP\node_modules\express\lib\router\route.js:119:3)
     at Layer.handle [as handle_request] (D:\belajar\gamelab\Grocery Delivery APP\node_modules\express\lib\router\layer.js:95:5)
     at D:\belajar\gamelab\Grocery Delivery APP\node_modules\express\lib\router\index.js:284:15
+ [LOGGER] 2024-06-07 03:08:04.937 PM ERROR : uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\belajar\gamelab\Grocery Delivery APP\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\belajar\gamelab\Grocery Delivery APP\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/router/dashboard-routes.js:7:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-07 03:17:21.347 PM ERROR : Error in login function: User not active
+ [LOGGER] 2024-06-07 03:17:21.349 PM ERROR : Error: User not active
+    at login (file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/src/controller/auth-controller.js:136:41)
