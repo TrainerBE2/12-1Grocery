@@ -1,9 +1,10 @@
 import logger from "../utils/logging.js";
-import { createUserValidation, updateUserValidation } from "../validation/user-validation.js";
+import { changePasswordValidation, createUserValidation, updateProfileValidation, updateUserValidation } from "../validation/user-validation.js";
 import { validate } from "../validation/validation.js";
 import { ResponseError } from "../error/response-error.js";
-import { encript } from "../utils/bcrypt.js";
+import { compare, encript } from "../utils/bcrypt.js";
 import { prisma } from "../utils/database.js";
+import fs from 'fs';
 
 
 
@@ -185,11 +186,98 @@ const logout = async (req, res, next) => {
     }
 }
 
+
+const changePassword = async (req, res, next) => {
+    try {
+        const { email } = req.user;
+        const user = await validate(changePasswordValidation, req.body)
+
+        const userExists = await prisma.user.findFirst({
+            where: {
+                email: email
+            }
+        });
+
+        if (!userExists) {
+            throw new ResponseError(404, 'User not found');
+        }
+
+        const isPasswordValid = await compare(user.oldPassword, userExists.password);
+
+        if (!isPasswordValid) {
+            throw new ResponseError(401, 'Password is incorrect');
+        }
+
+        const hashedPassword = await encript(user.newPassword);
+
+        await prisma.user.update({
+            where: { email: email },
+            data: { password: hashedPassword }
+        });
+
+        res.status(200).json({
+            message: 'Password changed successfully',
+            data: null
+        });
+        logger.info('Password changed successfully');
+
+    } catch (error) {
+        logger.error(`Error in changePassword function: ${error.message}`);
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
+
+const updateProfile = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const updateData = req.body;
+        if (req.file) {
+            updateData.image = req.file.filename;
+        }
+
+        const userExists = await prisma.user.findUnique({ where: { id: userId } });
+        if (!userExists) throw new ResponseError(404, 'User not found');
+
+        const user = validate(updateProfileValidation, updateData)
+
+        if (req.file) {
+            const filePath = `uploads/user/${userExists.image}`;
+            if (userExists.image !== 'default.jpg') {
+                fs.unlinkSync(filePath);
+            }
+        }
+
+        const result = await prisma.user.update({
+            data: { name: user.name, image: user.image, no_telp: user.no_telp },
+            where: { id: userId },
+            select: { id: true, name: true, image: true, no_telp: true }
+        });
+        res.status(200).json({
+            message: 'Profile updated successfully',
+            data: result
+        });
+        logger.info('Profile updated successfully');
+    } catch (error) {
+        if (req.file) {
+            const filePath = 'uploads/user/' + req.file.filename;
+            fs.unlinkSync(filePath);
+        }
+        logger.error(`Error in updateProfile function: ${error.message}`);
+        logger.error(error.stack);
+        next(error)
+    }
+}
+
+
 export default {
     createUser,
     updateUser,
     deleteUser,
     getUsers,
     getUser,
-    logout
+    logout,
+    changePassword,
+    updateProfile
 }

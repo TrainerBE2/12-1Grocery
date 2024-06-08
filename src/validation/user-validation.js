@@ -37,6 +37,19 @@ const updateUserValidation = Joi.object({
     no_telp: Joi.string().optional().min(11),
 });
 
+const changePasswordValidation = Joi.object({
+    oldPassword: Joi.string().min(8).max(100).required(),
+    newPassword: Joi.string().min(8).max(100).required(),
+    confirmPassword: Joi.string().min(8).valid(Joi.ref('newPassword')).required().strict(),
+})
+
+
+const updateProfileValidation = Joi.object({
+    name: Joi.string().max(100).optional(),
+    no_telp: Joi.string().max(13).min(11).optional(),
+    image: Joi.string().max(100).optional(),
+});
+
 
 export {
     loginValidation,
@@ -44,5 +57,7 @@ export {
     forgotPasswordValidation,
     resetPasswordValidation,
     createUserValidation,
-    updateUserValidation
+    updateUserValidation,
+    changePasswordValidation,
+    updateProfileValidation
 }

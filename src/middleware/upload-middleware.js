@@ -13,6 +13,19 @@ const storageProduct = multer.diskStorage({
 const uploadProduct = multer({ storage: storageProduct });
 
 
+const storageUser = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/user/');
+    },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        cb(null, Date.now() + ext);
+    },
+});
+const uploadUser = multer({ storage: storageUser });
+
+
 export {
-    uploadProduct
+    uploadProduct,
+    uploadUser
 }
