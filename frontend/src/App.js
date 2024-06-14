@@ -8,6 +8,7 @@ import Register from "./Component/Register";
 import ForgotPassword from "./Component/ForgotPasword";
 import Product, { products } from './Component/Product';
 import CategorySection from './Component/CategorySection';
+import Footer from './Component/Footer'; // Import the Footer component
 
 const ProductList = () => {
   return (
@@ -36,6 +37,7 @@ class App extends Component {
             <Route path="/products" element={<ProductList />} />
             <Route path="/category" element={<CategorySection />} />
           </Routes>
+          <Footer />
         </div>
       </Router>
     );

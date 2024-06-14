@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-import image1 from '../assets/folder/download (8).jpg';
+import image1 from '../assets/product1.png';
 
 
 
