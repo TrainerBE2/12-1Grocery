@@ -1,0 +1,29 @@
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+.product-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.product-title {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px; 
+}
+
+.product-list > div {
+  flex: 1 1 calc(20% - 16px); 
+  max-width: 20%;
+  box-sizing: border-box;
+}
