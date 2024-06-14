@@ -1,0 +1,32 @@
+ [LOGGER] 2024-06-14 03:46:21.577 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/cart-routes.js:6:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:22.704 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/products-routes.js:7:26
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:30.503 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/products-routes.js:7:26
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:37.378 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/products-routes.js:7:26
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:42.344 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/products-routes.js:7:26
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:46.081 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/user-routes.js:7:23
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:50.590 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/user-routes.js:7:23
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+ [LOGGER] 2024-06-14 03:49:59.757 PM ERROR : uncaughtException: authentication is not defined
+ReferenceError: authentication is not defined
+    at file:///D:/belajar/gamelab/Grocery%20Delivery%20APP/backend/src/router/user-routes.js:7:23
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
