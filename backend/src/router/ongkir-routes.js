@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/province', ongkirController.province);
 router.get('/city/:provinceId', ongkirController.city);
-router.post('/cost', authentication, ongkirController.cost);
+router.post('/cost', authentication(["User"]), ongkirController.cost);
 
 export default router

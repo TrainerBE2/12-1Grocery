@@ -4,12 +4,12 @@ import productsController from '../controller/products-controller.js';
 import { uploadProduct } from '../middleware/upload-middleware.js';
 const router = express.Router();
 
-router.post('/products', authentication, uploadProduct.single('image'), productsController.createProduct);
-router.get('/products', authentication, productsController.getProducts);
-router.get('/products/category/:category', authentication, productsController.getProductByCategory);
-router.get('/products/:productId', authentication, productsController.getProduct);
-router.put('/products/:productId', authentication, uploadProduct.single('image'), productsController.updateProduct);
-router.delete('/products/:productId', authentication, productsController.deleteProduct);
+router.post('/products', authentication(["Super Admin", "Admin"]), uploadProduct.single('image'), productsController.createProduct);
+router.get('/products', authentication(["Super Admin", "Admin", "User"]), productsController.getProducts);
+router.get('/products/category/:category', authentication(["Super Admin", "Admin", "User"]), productsController.getProductByCategory);
+router.get('/products/:productId', authentication(["Super Admin", "Admin", "User"]), productsController.getProduct);
+router.put('/products/:productId', authentication(["Super Admin", "Admin"]), uploadProduct.single('image'), productsController.updateProduct);
+router.delete('/products/:productId', authentication(["Super Admin", "Admin"]), productsController.deleteProduct);
 
 
 

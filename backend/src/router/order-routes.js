@@ -4,12 +4,12 @@ import orderController from '../controller/order-controller.js';
 const router = express.Router();
 
 
-router.get('/orders/filter-status', authentication, orderController.filterOrdersByStatus);
+router.get('/orders/filter-status', authentication(["Super Admin", "Admin", "User"]), orderController.filterOrdersByStatus);
 router.post('/orders/midtrans-web-hook', orderController.midtransWebhook);
-router.post('/orders/cancel-transaction', authentication, orderController.cancelTransaction);
-router.post('/orders', authentication, orderController.createOrder);
-router.get('/orders', authentication, orderController.getOrders);
-router.get('/orders/:orderId', authentication, orderController.getOrder);
+router.post('/orders/cancel-transaction', authentication(["User"]), orderController.cancelTransaction);
+router.post('/orders', authentication(["User"]), orderController.createOrder);
+router.get('/orders', authentication(["Admin", "Super Admin", "User"]), orderController.getOrders);
+router.get('/orders/:orderId', authentication(["Super Admin", "Admin", "User"]), orderController.getOrder);
 
 
 export default router

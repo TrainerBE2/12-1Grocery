@@ -1,33 +1,29 @@
 import { ResponseError } from "../error/response-error.js";
 import { verifyAccessToken } from "../utils/jwt.js";
 
-const authentication = (req, res, next) => {
+const authentication = (requiredRoles = []) => {
+    return (req, res, next) => {
+        const authHeader = req.headers["authorization"];
+        const token = authHeader && authHeader.split(" ")[1];
 
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+        if (!token) {
+            throw new ResponseError(401, "Unauthorized");
+        }
 
-    if (!token) throw new ResponseError(401, "Unauthorized");
+        const user = verifyAccessToken(token);
+        if (!user) {
+            throw new ResponseError(401, "Unauthorized");
+        }
 
-    const user = verifyAccessToken(token)
-    if (!user) throw new ResponseError(401, "Unauthorized");
+        req.user = user;
 
-    req.user = user;
-    next();
+        if (requiredRoles.length && !requiredRoles.some(role => user.role.includes(role))) {
+            console.log(user);
+            throw new ResponseError(403, `User role mismatch: required ${requiredRoles}, but got ${user.role}`);
+        }
 
-}
+        next();
+    };
+};
 
-const admin = (req, res, next) => {
-    if (!req.user.role === "Admin") {
-        throw new ResponseError(403, "Forbidden.. Kamu bukan Admin");
-    }
-    next();
-}
-
-const superAdmin = (req, res, next) => {
-    if (!req.user.role === "Super Admin") {
-        throw new ResponseError(403, "Forbidden.. Kamu bukan Super Admin");
-    }
-    next();
-}
-
-export { authentication, admin, superAdmin }
+export { authentication }
