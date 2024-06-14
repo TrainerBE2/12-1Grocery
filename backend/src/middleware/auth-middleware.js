@@ -18,14 +18,14 @@ const authentication = (req, res, next) => {
 
 const admin = (req, res, next) => {
     if (!req.user.role === "Admin") {
-        throw new ResponseError(403, false, "Forbidden.. Kamu bukan Admin", null);
+        throw new ResponseError(403, "Forbidden.. Kamu bukan Admin");
     }
     next();
 }
 
 const superAdmin = (req, res, next) => {
     if (!req.user.role === "Super Admin") {
-        throw new ResponseError(403, false, "Forbidden.. Kamu bukan Super Admin", null);
+        throw new ResponseError(403, "Forbidden.. Kamu bukan Super Admin");
     }
     next();
 }
