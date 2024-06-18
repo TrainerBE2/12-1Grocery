@@ -1,5 +1,9 @@
 import React from 'react';
-import './Footer.css'; // Assuming you have a CSS file for styles
+import './Footer.css'; 
+
+import fb from '../assets/socmed/fb.png'; 
+import ig from '../assets/socmed/ig.png';
+import twitter from '../assets/socmed/x.png';
 
 const Footer = () => {
   return (
@@ -11,19 +15,13 @@ const Footer = () => {
         </div>
         <div className="social-media-column">
           <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-            <img src="/images/social/facebook.png" alt="Facebook" />
+            <img src={fb} alt="Facebook" />
           </a>
           <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-            <img src="/images/social/instagram.png" alt="Instagram" />
-          </a>
-          <a href="https://line.me" target="_blank" rel="noopener noreferrer">
-            <img src="/images/social/line.png" alt="Line" />
-          </a>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-            <img src="/images/social/youtube.png" alt="YouTube" />
+            <img src={ig} alt="Instagram" />
           </a>
           <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-            <img src="/images/social/twitter.png" alt="Twitter" />
+            <img src={twitter} alt="Twitter" />
           </a>
         </div>
       </div>
@@ -33,18 +31,13 @@ const Footer = () => {
           <ul>
             <li><a href="/about">About Us</a></li>
             <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/careers">Careers</a></li>
-            <li><a href="/store">Our Store</a></li>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/terms">Terms & conditions</a></li>
-            <li><a href="/partners">Business Partner</a></li>
-            <li><a href="/how-to-pay">How To Pay</a></li>
-            <li><a href="/help">Help Center</a></li>
+            <li><a href="/">Our Store</a></li>
+            {/* <li><a href="/help">Help Center</a></li> */}
           </ul>
         </div>
         <div className="footer-column">
           <h4>CUSTOMER CARE</h4>
-          <p>Email: <a href="mailto:cs@grocery.com">cs@grocery.com</a></p>
+          <p>Email: <a href="mailto:cs@groceryapp.com">groceryapp.com</a></p>
           <p>WhatsApp: <a href="tel:+62811987881">0811987881</a></p>
         </div>
       </div>

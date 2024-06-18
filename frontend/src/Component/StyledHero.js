@@ -60,11 +60,12 @@ export const ProductDetails = styled.div`
 export const ProductName = styled.h3`
   font-size: 1em;
   margin: 10px 0;
+  color: #006769;  /* Primary color */
 `;
 
 export const ProductPrice = styled.p`
   font-size: 0.9em;
-  color: green;
+  color: #9DDE8B;  /* Accent color */
 `;
 
 export const HoverButton = styled.button`
@@ -72,8 +73,8 @@ export const HoverButton = styled.button`
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #ff69b4;
-  color: #fff;
+  background-color: #006769;  /* Primary color */
+  color: #fff;  /* White */
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -83,7 +84,7 @@ export const HoverButton = styled.button`
   transition: opacity 0.3s;
 
   &:hover {
-    background-color: #ff1493;
+    background-color: #004d4f;  /* Darker shade of primary color */
   }
 `;
 
@@ -118,6 +119,7 @@ export const CategoryImage = styled.img`
 export const CategoryName = styled.h3`
   font-size: 1em;
   margin: 10px 0;
+  color: #006769;  /* Primary color */
 `;
 
 export const SectionTitle = styled.h2`
@@ -134,9 +136,34 @@ export const AboutSection = styled.div`
   text-align: center;
 `;
 
-export const AboutDescription = styled.p`
-  font-size: 1.2em;
-  color: #333;
+export const AboutContent = styled.div`
   max-width: 800px;
   margin: 0 auto;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center; /* Center the text */
+`;
+
+export const AboutTitle = styled.h2`
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #006769;  /* Primary color */
+`;
+
+export const AboutDescription = styled.p`
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #333;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+export const AboutIcon = styled.div`
+  font-size: 3em;
+  color: #9DDE8B;  /* Accent color */
+  margin-bottom: 20px;
 `;

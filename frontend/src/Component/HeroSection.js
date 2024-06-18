@@ -16,6 +16,8 @@ import {
   CategoryImage,
   CategoryName,
   AboutSection,
+  AboutContent,
+  AboutTitle,
   AboutDescription,
   SectionTitle
 } from './StyledHero';
@@ -43,7 +45,7 @@ const HeroCarousel = () => {
   const productItems = [
     { id: 1, src: product1, name: 'Product 1', price: 'Rp39.000' },
     { id: 2, src: product2, name: 'Product 2', price: 'Rp36.800' },
-    { id: 3, src: product4, name: 'Product 3', price: 'Rp82.500 - Rp89.000' },
+    { id: 3, src: category4, name: 'Product 3', price: 'Rp82.500 - Rp89.000' },
     { id: 4, src: product4, name: 'Product 4', price: 'Rp17.550 - Rp119.250' },
     { id: 5, src: product5, name: 'Product 5', price: 'Rp103.607' }
   ];
@@ -94,9 +96,12 @@ const HeroCarousel = () => {
       </ProductsSection>
 
       <AboutSection>
-        <AboutDescription>
-          Welcome to our Grocery App! We offer a wide range of fresh products, delivered to your doorsteps. Enjoy the best quality and service with us.
-        </AboutDescription>
+        <AboutContent>
+          <AboutTitle>Tentang Kami</AboutTitle>
+          <AboutDescription>
+            Selamat datang di Grocery App! Kami menawarkan berbagai produk segar yang dikirim langsung ke depan pintu Anda. Nikmati kualitas terbaik dan layanan istimewa bersama kami.
+          </AboutDescription>
+        </AboutContent>
       </AboutSection>
     </>
   );
