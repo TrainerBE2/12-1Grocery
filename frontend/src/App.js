@@ -8,8 +8,8 @@ import Register from "./Component/Register";
 import ForgotPassword from "./Component/ForgotPasword";
 import Product, { products } from './Component/Product';
 import CategorySection from './Component/CategorySection';
-import Footer from './Component/Footer'; // Import the Footer component
-import DetailProduct from "./Component/DetailProduct";
+import Footer from './Component/Footer';
+import ProductPage from "./Component/ProductPage";
 
 const ProductList = () => {
   return (
@@ -37,7 +37,7 @@ class App extends Component {
             <Route path="/register" element={<Register />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/category" element={<CategorySection />} />
-            <Route path="/detail-produk" element={<DetailProduct />} />
+            <Route path="/detail-produk" element={<ProductPage />} />
           </Routes>
           <Footer />
         </div>
